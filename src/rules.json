@@ -1,0 +1,21 @@
+{
+  "presets": {
+    "1080p60": {
+      "minBitrateKbps": 6000,
+      "maxDropPct": 2,
+      "maxCpuPct": 85
+    },
+    "720p60": {
+      "minBitrateKbps": 3500,
+      "maxDropPct": 2,
+      "maxCpuPct": 85
+    },
+    "1080p30": {
+      "minBitrateKbps": 4500,
+      "maxDropPct": 2,
+      "maxCpuPct": 85
+    }
+  },
+  "defaultPreset": "1080p60",
+  "stabilityWindowSec": 20
+}
