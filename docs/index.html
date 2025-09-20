@@ -7,60 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
 
-    <!-- Estilo base com variáveis CSS e melhor organização -->
+    <!-- Estilo base + Temas (light/dark) -->
     <style>
-      /* Variáveis para facilitar manutenção e consistência */
+      /**
+       * Variáveis de cores e espaçamento
+       * Facilita manutenção e consistência
+       */
       :root {
-        /* Cores do tema claro (padrão) */
-        --background-color: #fff;
-        --text-color: #2c3e50;
-        --text-color-secondary: #34495e;
-        --link-color: #42b983;
-        --sidebar-bg: #fff;
-        --search-bg: #fff;
-        --button-bg: rgba(0,0,0,0.08);
-        --button-border: rgba(0,0,0,0.12);
-        --button-text: #2c3e50;
-        --button-hover-bg: rgba(0,0,0,0.12);
-      }
-
-      /* Variáveis do tema escuro */
-      [data-theme="dark"] {
-        --background-color: #0f172a;
-        --text-color: #e2e8f0;
-        --text-color-secondary: #cbd5e1;
-        --link-color: #93c5fd;
-        --sidebar-bg: #0b1220;
-        --search-bg: #0b1220;
-        --button-bg: rgba(255,255,255,0.12);
-        --button-border: rgba(255,255,255,0.18);
-        --button-text: #e2e8f0;
-        --button-hover-bg: rgba(255,255,255,0.18);
-      }
-
-      /* Aplicação das variáveis */
-      body { 
-        background: var(--background-color); 
-        transition: background 0.3s ease;
-      }
-      .markdown-section { 
-        color: var(--text-color); 
-      }
-      .markdown-section a { 
-        color: var(--link-color); 
-      }
-      .sidebar, .sidebar ul { 
-        background: var(--sidebar-bg); 
-      }
-      .sidebar a { 
-        color: var(--text-color-secondary); 
-      }
-      .app-name-link, .app-name-link img + span { 
-        color: var(--text-color) !important; 
-      }
-      .search .results-panel { 
-        background: var(--search-bg); 
-        color: var(--text-color); 
+        /* Cores light mode */
+        --light-bg: #fff;
+        --light-text: #2c3e50;
+        --light-link: #42b983;
+        --light-sidebar: #fff;
+        --light-sidebar-text: #34495e;
+        --light-btn-bg: rgba(0, 0, 0, 0.06);
+        --light-btn-border: rgba(0, 0, 0, 0.08);
+        
+        /* Cores dark mode */
+        --dark-bg: #0f172a;
+        --dark-text: #e2e8f0;
+        --dark-link: #93c5fd;
+        --dark-sidebar: #0b1220;
+        --dark-sidebar-text: #cbd5e1;
+        --dark-btn-bg: rgba(255, 255, 255, 0.1);
+        --dark-btn-border: rgba(255, 255, 255, 0.12);
+        
+        /* Espaçamento */
+        --space-xs: 0.25rem;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
       }
 
       /* Ajustes de branding na sidebar (título centrado + espaçamento) */
@@ -68,66 +44,96 @@
         display: flex !important;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        padding: 14px 12px;
-        margin: 6px 10px 12px;
-        border-radius: 8px;
-      }
-      
-      /* Centralizar verticalmente o ícone e texto */
-      .app-name-link img {
-        vertical-align: middle;
-        margin-right: 6px;
-      }
-      
-      .app-name-link span {
-        vertical-align: middle;
-        line-height: 28px; /* Ajusta à altura do ícone */
-      }
-
-      /* Botão do tema com melhor contraste */
-      .theme-toggle {
-        position: fixed; 
-        top: 12px; 
-        right: 12px; 
-        z-index: 9999;
-        padding: 6px 12px; 
-        border-radius: 10px; 
-        font-size: 13px;
-        background: var(--button-bg);
-        color: var(--button-text);
-        backdrop-filter: blur(6px); 
-        cursor: pointer;
-        border: 1px solid var(--button-border);
-        transition: background 0.2s ease, border-color 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      }
-
-      .theme-toggle:hover {
-        background: var(--button-hover-bg);
+        gap: var(--space-sm);
+        padding: var(--space-md) var(--space-sm);
+        margin: var(--space-xs) var(--space-sm) var(--space-md);
+        border-radius: var(--space-sm);
       }
 
       /* Dark automático (quando não há tema forçado) */
       @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --background-color: #0f172a;
-          --text-color: #e2e8f0;
-          --text-color-secondary: #cbd5e1;
-          --link-color: #93c5fd;
-          --sidebar-bg: #0b1220;
-          --search-bg: #0b1220;
-          --button-bg: rgba(255,255,255,0.12);
-          --button-border: rgba(255,255,255,0.18);
-          --button-text: #e2e8f0;
-          --button-hover-bg: rgba(255,255,255,0.18);
+        :root { color-scheme: dark; }
+        body { background: var(--dark-bg); }
+        .markdown-section { color: var(--dark-text); }
+        .markdown-section a { color: var(--dark-link); }
+        .sidebar, .sidebar ul { background: var(--dark-sidebar); }
+        .sidebar a { color: var(--dark-sidebar-text); }
+        .app-name-link, .app-name-link img + span { color: var(--dark-text) !important; }
+        .search .results-panel { background: var(--dark-sidebar); color: var(--dark-text); }
+        
+        /* Botão de abertura da sidebar */
+        .sidebar-toggle span { background-color: var(--dark-text); }
+      }
+
+      /* Botão do tema */
+      .theme-toggle {
+        position: fixed; 
+        top: var(--space-lg); 
+        right: var(--space-lg); 
+        z-index: 9999;
+        padding: var(--space-xs) var(--space-sm); 
+        border-radius: var(--space-sm); 
+        font-size: 0.875rem;
+        background: var(--light-btn-bg);
+        backdrop-filter: blur(6px); 
+        cursor: pointer;
+        border: 1px solid var(--light-btn-border);
+        transition: all 0.2s ease;
+      }
+      @media (prefers-color-scheme: dark) {
+        .theme-toggle { 
+          background: var(--dark-btn-bg); 
+          color: var(--dark-text); 
+          border-color: var(--dark-btn-border); 
         }
+      }
+      
+      /* Botão toggle da sidebar em ambos os temas */
+      .sidebar-toggle { 
+        background-color: transparent; 
+      }
+      .sidebar-toggle span {
+        transition: background-color 0.2s ease;
+      }
+
+      /* ===== Temas forçados (Light/Dark) — sobrepõem o automático ===== */
+      /* Dark Mode Forçado */
+      :root[data-theme="dark"] { color-scheme: dark; }
+      :root[data-theme="dark"] body { background: var(--dark-bg); }
+      :root[data-theme="dark"] .markdown-section { color: var(--dark-text); }
+      :root[data-theme="dark"] .markdown-section a { color: var(--dark-link); }
+      :root[data-theme="dark"] .sidebar, :root[data-theme="dark"] .sidebar ul { background: var(--dark-sidebar); }
+      :root[data-theme="dark"] .sidebar a { color: var(--dark-sidebar-text); }
+      :root[data-theme="dark"] .app-name-link, :root[data-theme="dark"] .app-name-link img + span { color: var(--dark-text) !important; }
+      :root[data-theme="dark"] .search .results-panel { background: var(--dark-sidebar); color: var(--dark-text); }
+      :root[data-theme="dark"] .sidebar-toggle span { background-color: var(--dark-text); }
+      :root[data-theme="dark"] .theme-toggle { 
+        background: var(--dark-btn-bg); 
+        color: var(--dark-text); 
+        border-color: var(--dark-btn-border);
+      }
+
+      /* Light Mode Forçado */
+      :root[data-theme="light"] { color-scheme: light; }
+      :root[data-theme="light"] body { background: var(--light-bg); }
+      :root[data-theme="light"] .markdown-section { color: var(--light-text); }
+      :root[data-theme="light"] .markdown-section a { color: var(--light-link); }
+      :root[data-theme="light"] .sidebar, :root[data-theme="light"] .sidebar ul { background: var(--light-sidebar); }
+      :root[data-theme="light"] .sidebar a { color: var(--light-sidebar-text); }
+      :root[data-theme="light"] .app-name-link, :root[data-theme="light"] .app-name-link img + span { color: var(--light-text) !important; }
+      :root[data-theme="light"] .search .results-panel { background: var(--light-sidebar); color: var(--light-text); }
+      :root[data-theme="light"] .sidebar-toggle span { background-color: var(--light-text); }
+      :root[data-theme="light"] .theme-toggle { 
+        background: var(--light-btn-bg); 
+        color: var(--light-text); 
+        border-color: var(--light-btn-border);
       }
     </style>
   </head>
 
   <body>
     <div id="app"></div>
-    <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">🌙 Dark</button>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙 Dark</button>
 
     <script>
       const PROJECT_VERSION = "0.1.0"; // atualiza quando fizeres release
@@ -143,7 +149,11 @@
         plugins: [
           function (hook, vm) {
             hook.afterEach(function (html, next) {
-              const updated = new Date().toLocaleDateString("pt-PT", { year: "numeric", month: "short", day: "2-digit" });
+              const updated = new Date().toLocaleDateString("pt-PT", { 
+                year: "numeric", 
+                month: "short", 
+                day: "2-digit" 
+              });
               const footer = `
                 <hr/>
                 <footer style="font-size:14px;opacity:.8;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
@@ -161,74 +171,82 @@
       };
     </script>
 
-    <!-- Toggle Light/Dark/Auto - Corrigido e simplificado -->
+    <!-- Toggle Light/Dark/Auto -->
     <script>
+      /**
+       * Gestão de temas (light/dark/auto)
+       * Segue princípios KISS e usa localStorage para persistência
+       */
       (function () {
         // Constantes
-        const KEY = "sc-theme";                 // 'light' | 'dark' | null (auto)
+        const STORAGE_KEY = "sc-theme";        // Chave para localStorage
+        const THEME_LIGHT = "light";           // Valor para tema claro
+        const THEME_DARK = "dark";             // Valor para tema escuro
         const btn = document.getElementById("themeToggle");
         
         /**
-         * Aplica o tema à página
-         * @param {string|null} theme - 'light', 'dark' ou null (auto)
+         * Aplica o tema ao documento e atualiza UI
+         * @param {string|null} themeName - Nome do tema ou null para auto
          */
-        function applyTheme(theme) {
-          // Define ou remove o atributo data-theme no elemento raiz
-          document.documentElement.setAttribute("data-theme", theme || "");
+        function applyTheme(themeName) {
+          // Remove ou define o atributo data-theme no elemento raiz
+          if (!themeName) {
+            document.documentElement.removeAttribute("data-theme");
+          } else {
+            document.documentElement.setAttribute("data-theme", themeName);
+          }
+
+          // Determina se está em modo escuro (pelo tema forçado ou sistema)
+          const isDarkMode = themeName 
+            ? themeName === THEME_DARK
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
           
-          // Determina se estamos em modo escuro para ajustar o botão
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const isDark = theme === "dark" || (theme === null && prefersDark);
-          
-          // Atualiza o texto e estado do botão
-          btn.textContent = isDark ? "☀️ Light" : "🌙 Dark";
-          btn.setAttribute("aria-pressed", String(isDark));
-          btn.title = theme ? `Tema: ${theme}` : "Tema: auto";
+          // Atualiza aparência do botão
+          btn.textContent = isDarkMode ? "☀️ Light" : "🌙 Dark";
+          btn.setAttribute("aria-pressed", String(isDarkMode));
+          btn.title = themeName ? `Tema: ${themeName}` : "Tema: automático";
         }
 
         /**
-         * Define o tema e salva a preferência
-         * @param {string|null} theme - 'light', 'dark' ou null (auto)
+         * Define o tema e persiste em localStorage
+         * @param {string|null} themeName - Nome do tema ou null para auto
          */
-        function setTheme(theme) {
-          // Salva a preferência do usuário
-          if (!theme) {
-            localStorage.removeItem(KEY);
+        function setTheme(themeName) {
+          if (!themeName) {
+            localStorage.removeItem(STORAGE_KEY);
           } else {
-            localStorage.setItem(KEY, theme);
+            localStorage.setItem(STORAGE_KEY, themeName);
           }
-          
-          // Aplica o tema
-          applyTheme(theme);
+          applyTheme(themeName);
         }
 
-        // Inicialização: aplica o tema salvo ou o tema automático
-        applyTheme(localStorage.getItem(KEY));
+        // Inicialização - aplica tema guardado no localStorage
+        applyTheme(localStorage.getItem(STORAGE_KEY));
 
-        // Atualiza quando a preferência do sistema muda (se estiver em modo automático)
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-          if (!localStorage.getItem(KEY)) {
-            applyTheme(null);
+        // Observer para alterações de tema do sistema (quando em auto)
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+          if (!localStorage.getItem(STORAGE_KEY)) {
+            applyTheme(null); // Reaplica o tema auto
           }
         });
 
-        // Clique normal → alterna entre dark/light
+        // Event listeners
+        // Clique normal - alterna entre dark/light
         btn.addEventListener("click", () => {
-          const currentTheme = localStorage.getItem(KEY);
-          const nextTheme = currentTheme === "dark" ? "light" : "dark";
+          const currentTheme = localStorage.getItem(STORAGE_KEY);
+          const nextTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
           setTheme(nextTheme);
         });
 
-        // Clique direito ou clique do meio → volta a AUTO
+        // Clique direito - volta para modo AUTO
         btn.addEventListener("contextmenu", (e) => { 
           e.preventDefault(); 
           setTheme(null); 
         });
         
+        // Clique do meio - volta para modo AUTO
         btn.addEventListener("auxclick", (e) => { 
-          if (e.button === 1) {
-            setTheme(null); 
-          }
+          if (e.button === 1) setTheme(null); 
         });
       })();
     </script>
