@@ -1,3 +1,5 @@
+[![Docs](https://img.shields.io/badge/Docs-Live-2ea44f)](https://rlnunes.github.io/stream-coach-agent/)
+
 # Stream Coach — Agent
 
 Agente local que recolhe métricas do OBS via WebSocket e expõe-as em tempo real para o dashboard.
