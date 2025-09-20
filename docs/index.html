@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
 
-    <!-- Estilos base + Dark automático -->
+    <!-- Estilo base + Dark automático -->
     <style>
       /* Ajustes de branding na sidebar (título centrado + espaçamento) */
       .app-name-link {
@@ -31,80 +31,62 @@
         .app-name-link, .app-name-link img + span { color: #e2e8f0 !important; }
         .search .results-panel { background: #0b1220; color: #e2e8f0; }
         
-        /* Botão sidebar no modo escuro */
-        .sidebar-toggle span { background-color: #cbd5e1; }
+        /* Correção do botão da sidebar no modo escuro */
+        body.close .sidebar-toggle span {
+          background-color: #cbd5e1;
+        }
+        .sidebar-toggle span {
+          background-color: #cbd5e1;
+        }
       }
 
-      /* Botão do tema - reposicionado mais abaixo */
+      /* Botão do tema */
       .theme-toggle {
         position: fixed; 
-        top: 5rem; 
+        top: 1rem; 
         right: 1rem; 
         z-index: 9999;
         padding: 0.375rem 0.625rem; 
         border-radius: 0.625rem; 
         font-size: 0.8125rem;
-        background: rgba(0,0,0,0.1); 
+        background: rgba(0,0,0,.06); 
         backdrop-filter: blur(6px); 
         cursor: pointer;
-        border: 1px solid rgba(0,0,0,0.15);
-        transition: background 0.3s ease, color 0.3s ease;
+        border: 1px solid rgba(0,0,0,.08);
       }
-      
-      /* Estado hover do botão de tema */
-      .theme-toggle:hover {
-        background: rgba(0,0,0,0.15);
-      }
-
       @media (prefers-color-scheme: dark) {
         .theme-toggle { 
-          background: rgba(255,255,255,0.12); 
+          background: rgba(255,255,255,.08); 
           color: #e2e8f0; 
-          border-color: rgba(255,255,255,0.15); 
-        }
-        
-        .theme-toggle:hover {
-          background: rgba(255,255,255,0.18);
+          border-color: rgba(255,255,255,.12); 
         }
       }
 
       /* ===== Temas forçados (Light/Dark) — sobrepõem o automático ===== */
       :root[data-theme="dark"] { color-scheme: dark; }
-      :root[data-theme="dark"] body { background:#0f172a; }
-      :root[data-theme="dark"] .markdown-section { color:#e2e8f0; }
-      :root[data-theme="dark"] .markdown-section a { color:#93c5fd; }
-      :root[data-theme="dark"] .sidebar, :root[data-theme="dark"] .sidebar ul { background:#0b1220; }
-      :root[data-theme="dark"] .sidebar a { color:#cbd5e1; }
-      :root[data-theme="dark"] .app-name-link, :root[data-theme="dark"] .app-name-link img + span { color:#e2e8f0 !important; }
-      :root[data-theme="dark"] .search .results-panel { background:#0b1220; color:#e2e8f0; }
-      :root[data-theme="dark"] .sidebar-toggle span { background-color: #cbd5e1; }
-      :root[data-theme="dark"] .theme-toggle { 
-        background: rgba(255,255,255,0.12); 
-        color: #e2e8f0; 
-        border-color: rgba(255,255,255,0.15); 
-      }
-      :root[data-theme="dark"] .theme-toggle:hover {
-        background: rgba(255,255,255,0.18);
+      :root[data-theme="dark"] body { background: #0f172a; }
+      :root[data-theme="dark"] .markdown-section { color: #e2e8f0; }
+      :root[data-theme="dark"] .markdown-section a { color: #93c5fd; }
+      :root[data-theme="dark"] .sidebar, :root[data-theme="dark"] .sidebar ul { background: #0b1220; }
+      :root[data-theme="dark"] .sidebar a { color: #cbd5e1; }
+      :root[data-theme="dark"] .app-name-link, :root[data-theme="dark"] .app-name-link img + span { color: #e2e8f0 !important; }
+      :root[data-theme="dark"] .search .results-panel { background: #0b1220; color: #e2e8f0; }
+      
+      /* Correção do botão da sidebar no tema escuro forçado */
+      :root[data-theme="dark"] body.close .sidebar-toggle span,
+      :root[data-theme="dark"] .sidebar-toggle span {
+        background-color: #cbd5e1;
       }
 
       /* Forçar Light (neutraliza o @media dark) */
       :root[data-theme="light"] { color-scheme: light; }
-      :root[data-theme="light"] body { background:#fff; }
-      :root[data-theme="light"] .markdown-section { color:#2c3e50; }
-      :root[data-theme="light"] .markdown-section a { color:#42b983; }
-      :root[data-theme="light"] .sidebar, :root[data-theme="light"] .sidebar ul { background:#fff; }
-      :root[data-theme="light"] .sidebar a { color:#34495e; }
-      :root[data-theme="light"] .app-name-link, :root[data-theme="light"] .app-name-link img + span { color:#2c3e50 !important; }
-      :root[data-theme="light"] .search .results-panel { background:#fff; color:#2c3e50; }
-      :root[data-theme="light"] .sidebar-toggle span { background-color: #34495e; }
-      :root[data-theme="light"] .theme-toggle { 
-        background: rgba(0,0,0,0.1); 
-        color: #2c3e50; 
-        border-color: rgba(0,0,0,0.15); 
-      }
-      :root[data-theme="light"] .theme-toggle:hover {
-        background: rgba(0,0,0,0.15);
-      }
+      :root[data-theme="light"] body { background: #fff; }
+      :root[data-theme="light"] .markdown-section { color: #2c3e50; }
+      :root[data-theme="light"] .markdown-section a { color: #42b983; }
+      :root[data-theme="light"] .sidebar, :root[data-theme="light"] .sidebar ul { background: #fff; }
+      :root[data-theme="light"] .sidebar a { color: #34495e; }
+      :root[data-theme="light"] .app-name-link, :root[data-theme="light"] .app-name-link img + span { color: #2c3e50 !important; }
+      :root[data-theme="light"] .search .results-panel { background: #fff; color: #2c3e50; }
     </style>
   </head>
 
@@ -129,7 +111,7 @@
               const updated = new Date().toLocaleDateString("pt-PT", { year: "numeric", month: "short", day: "2-digit" });
               const footer = `
                 <hr/>
-                <footer style="font-size:0.875rem;opacity:.8;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
+                <footer style="font-size:14px;opacity:.8;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
                   <span>📚 Docs</span><span>•</span>
                   <span>Versão <strong>${PROJECT_VERSION}</strong></span><span>•</span>
                   <span>Atualizado: ${updated}</span>
