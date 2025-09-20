@@ -96,16 +96,24 @@
                 </footer>`;
               next(html + footer);
             });
+            
+            // Inicializar o tema depois que o Docsify estiver pronto
+            hook.ready(function() {
+              initThemeToggle();
+            });
           },
         ],
       };
-    </script>
-
-    <!-- Toggle Light/Dark/Auto -->
-    <script>
-      (function () {
-        const KEY = "sc-theme";                 // 'light' | 'dark' | null (auto)
+      
+      // Função de inicialização do tema movida para fora
+      function initThemeToggle() {
+        const KEY = "sc-theme";          // 'light' | 'dark' | null (auto)
         const btn = document.getElementById("themeToggle");
+        
+        if (!btn) {
+          console.error("Botão de tema não encontrado!");
+          return;
+        }
 
         function applyTheme(t) {
           if (!t) document.documentElement.removeAttribute("data-theme");
@@ -124,9 +132,10 @@
           if (!next) localStorage.removeItem(KEY);
           else localStorage.setItem(KEY, next);
           applyTheme(next);
+          console.log("Tema alterado para:", next || "auto");  // Debug
         }
 
-        // Inicial
+        // Aplicar tema inicial
         applyTheme(localStorage.getItem(KEY));
 
         // Atualiza quando o sistema muda (se em auto)
@@ -142,9 +151,17 @@
         });
 
         // Clique direito ou clique do meio → volta a AUTO
-        btn.addEventListener("contextmenu", (e) => { e.preventDefault(); setTheme(null); });
-        btn.addEventListener("auxclick", (e) => { if (e.button === 1) setTheme(null); });
-      })();
+        btn.addEventListener("contextmenu", (e) => { 
+          e.preventDefault(); 
+          setTheme(null); 
+        });
+        
+        btn.addEventListener("auxclick", (e) => { 
+          if (e.button === 1) setTheme(null); 
+        });
+        
+        console.log("Inicialização do tema concluída!");  // Debug
+      }
     </script>
 
     <!-- Docsify core + search -->
