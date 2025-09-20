@@ -4,70 +4,70 @@
     <meta charset="UTF-8" />
     <title>Stream Coach — Documentação</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+
+    <!-- Estilo base + Dark automático -->
     <style>
-      @media (prefers-color-scheme: dark) {
-        :root {
-          color-scheme: dark;
-        }
-        body {
-          background: #0f172a;
-        }
-        .markdown-section {
-          color: #e2e8f0;
-        }
-        .markdown-section a {
-          color: #93c5fd;
-        }
-        .sidebar,
-        .sidebar ul {
-          background: #0b1220;
-        }
-        .sidebar a {
-          color: #cbd5e1;
-        }
-        .app-name-link,
-        .app-name-link img + span {
-          color: #e2e8f0 !important;
-        }
-        .search .results-panel {
-          background: #0b1220;
-          color: #e2e8f0;
-        }
+      /* Ajustes de branding na sidebar (título centrado + espaçamento) */
+      .app-name-link {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 12px;
+        margin: 6px 10px 12px;
+        border-radius: 8px;
       }
 
+      /* Dark automático (quando não há tema forçado) */
+      @media (prefers-color-scheme: dark) {
+        :root { color-scheme: dark; }
+        body { background: #0f172a; }
+        .markdown-section { color: #e2e8f0; }
+        .markdown-section a { color: #93c5fd; }
+        .sidebar, .sidebar ul { background: #0b1220; }
+        .sidebar a { color: #cbd5e1; }
+        .app-name-link, .app-name-link img + span { color: #e2e8f0 !important; }
+        .search .results-panel { background: #0b1220; color: #e2e8f0; }
+      }
+
+      /* Botão do tema */
       .theme-toggle {
-        position: fixed;
-        top: 12px;
-        right: 12px;
-        z-index: 9999;
-        padding: 6px 10px;
-        border-radius: 10px;
-        font-size: 13px;
-        background: rgba(0, 0, 0, 0.06);
-        backdrop-filter: blur(6px);
-        cursor: pointer;
+        position: fixed; top: 12px; right: 12px; z-index: 9999;
+        padding: 6px 10px; border-radius: 10px; font-size: 13px;
+        background: rgba(0,0,0,.06); backdrop-filter: blur(6px); cursor: pointer;
+        border: 1px solid rgba(0,0,0,.08);
       }
       @media (prefers-color-scheme: dark) {
-        .theme-toggle {
-          background: rgba(255, 255, 255, 0.08);
-          color: #e2e8f0;
-        }
+        .theme-toggle { background: rgba(255,255,255,.08); color: #e2e8f0; border-color: rgba(255,255,255,.12); }
       }
+
+      /* ===== Temas forçados (Light/Dark) — sobrepõem o automático ===== */
+      :root[data-theme="dark"] { color-scheme: dark; }
+      :root[data-theme="dark"] body { background:#0f172a; }
+      :root[data-theme="dark"] .markdown-section { color:#e2e8f0; }
+      :root[data-theme="dark"] .markdown-section a { color:#93c5fd; }
+      :root[data-theme="dark"] .sidebar, :root[data-theme="dark"] .sidebar ul { background:#0b1220; }
+      :root[data-theme="dark"] .sidebar a { color:#cbd5e1; }
+      :root[data-theme="dark"] .app-name-link, :root[data-theme="dark"] .app-name-link img + span { color:#e2e8f0 !important; }
+      :root[data-theme="dark"] .search .results-panel { background:#0b1220; color:#e2e8f0; }
+
+      /* Forçar Light (neutraliza o @media dark) */
+      :root[data-theme="light"] { color-scheme: light; }
+      :root[data-theme="light"] body { background:#fff; }
+      :root[data-theme="light"] .markdown-section { color:#2c3e50; }
+      :root[data-theme="light"] .markdown-section a { color:#42b983; }
+      :root[data-theme="light"] .sidebar, :root[data-theme="light"] .sidebar ul { background:#fff; }
+      :root[data-theme="light"] .sidebar a { color:#34495e; }
+      :root[data-theme="light"] .app-name-link, :root[data-theme="light"] .app-name-link img + span { color:#2c3e50 !important; }
+      :root[data-theme="light"] .search .results-panel { background:#fff; color:#2c3e50; }
     </style>
   </head>
+
   <body>
     <div id="app"></div>
-    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-      🌙 Dark
-    </button>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙 Dark</button>
 
     <script>
       const PROJECT_VERSION = "0.1.0"; // atualiza quando fizeres release
@@ -79,31 +79,21 @@
         subMaxLevel: 2,
         auto2top: true,
         homepage: "README.md",
-        search: {
-          paths: "auto",
-          placeholder: "Pesquisar...",
-          noData: "Sem resultados",
-        },
+        search: { paths: "auto", placeholder: "Pesquisar...", noData: "Sem resultados" },
         plugins: [
           function (hook, vm) {
             hook.afterEach(function (html, next) {
-              const updated = new Date().toLocaleDateString("pt-PT", {
-                year: "numeric",
-                month: "short",
-                day: "2-digit",
-              });
+              const updated = new Date().toLocaleDateString("pt-PT", { year: "numeric", month: "short", day: "2-digit" });
               const footer = `
-            <hr/>
-            <footer style="font-size:14px;opacity:.8;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-              <span>📚 Docs</span>
-              <span>•</span>
-              <span>Versão <strong>${PROJECT_VERSION}</strong></span>
-              <span>•</span>
-              <span>Atualizado: ${updated}</span>
-              <span style="margin-left:auto;">
-                <a href="https://github.com/RLNunes/stream-coach-agent" target="_blank" rel="noopener">GitHub</a>
-              </span>
-            </footer>`;
+                <hr/>
+                <footer style="font-size:14px;opacity:.8;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                  <span>📚 Docs</span><span>•</span>
+                  <span>Versão <strong>${PROJECT_VERSION}</strong></span><span>•</span>
+                  <span>Atualizado: ${updated}</span>
+                  <span style="margin-left:auto;">
+                    <a href="https://github.com/RLNunes/stream-coach-agent" target="_blank" rel="noopener">GitHub</a>
+                  </span>
+                </footer>`;
               next(html + footer);
             });
           },
@@ -111,19 +101,23 @@
       };
     </script>
 
-    <!-- Theme toggle logic -->
+    <!-- Toggle Light/Dark/Auto -->
     <script>
       (function () {
-        const KEY = "sc-theme";
+        const KEY = "sc-theme";                 // 'light' | 'dark' | null (auto)
         const btn = document.getElementById("themeToggle");
 
         function applyTheme(t) {
-          document.documentElement.dataset.theme = t || "";
+          if (!t) document.documentElement.removeAttribute("data-theme");
+          else document.documentElement.setAttribute("data-theme", t);
+
+          // Estado visual do botão
           const isDark = t
             ? t === "dark"
             : window.matchMedia("(prefers-color-scheme: dark)").matches;
           btn.textContent = isDark ? "☀️ Light" : "🌙 Dark";
           btn.setAttribute("aria-pressed", String(isDark));
+          btn.title = t ? `Tema: ${t}` : "Tema: auto";
         }
 
         function setTheme(next) {
@@ -132,32 +126,24 @@
           applyTheme(next);
         }
 
-        // estado inicial
-        const saved = localStorage.getItem(KEY);
-        applyTheme(saved);
+        // Inicial
+        applyTheme(localStorage.getItem(KEY));
 
-        // atualizar quando o sistema muda (se em auto)
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", () => {
-            if (!localStorage.getItem(KEY)) applyTheme(null);
-          });
+        // Atualiza quando o sistema muda (se em auto)
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+          if (!localStorage.getItem(KEY)) applyTheme(null);
+        });
 
-        // clique normal → alterna
+        // Clique normal → alterna entre dark/light
         btn.addEventListener("click", () => {
           const cur = localStorage.getItem(KEY);
           const next = cur === "dark" ? "light" : "dark";
           setTheme(next);
         });
 
-        // clique direito ou meio → auto
-        btn.addEventListener("contextmenu", (e) => {
-          e.preventDefault();
-          setTheme(null);
-        });
-        btn.addEventListener("auxclick", (e) => {
-          if (e.button === 1) setTheme(null);
-        });
+        // Clique direito ou clique do meio → volta a AUTO
+        btn.addEventListener("contextmenu", (e) => { e.preventDefault(); setTheme(null); });
+        btn.addEventListener("auxclick", (e) => { if (e.button === 1) setTheme(null); });
       })();
     </script>
 
