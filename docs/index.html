@@ -1,30 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <title>Stream Coach — Documentação</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
-</head>
-<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-<script>
-  window.$docsify = Object.assign(window.$docsify || {}, {
-    search: { paths: 'auto', placeholder: 'Pesquisar...', noData: 'Sem resultados' }
-  });
-</script>
-<body>
-  <div id="app"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stream Coach — Documentação</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
+    />
+  </head>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
   <script>
-    window.$docsify = {
-      name: 'Stream Coach — Agent',
-      repo: 'RLNunes/stream-coach-agent',
-      loadSidebar: true,
-      subMaxLevel: 2,
-      auto2top: true,
-      homepage: 'README.md'
-    };
+    window.$docsify = Object.assign(window.$docsify || {}, {
+      search: {
+        paths: "auto",
+        placeholder: "Pesquisar...",
+        noData: "Sem resultados",
+      },
+    });
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-</body>
+  <body>
+    <div id="app"></div>
+    <!-- Dark mode automático via prefers-color-scheme -->
+    <style>
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+        }
+        body {
+          background: #0f172a;
+        }
+        .markdown-section {
+          color: #e2e8f0;
+        }
+        .markdown-section a {
+          color: #93c5fd;
+        }
+        .sidebar,
+        .sidebar ul {
+          background: #0b1220;
+        }
+        .sidebar a {
+          color: #cbd5e1;
+        }
+        .app-name-link,
+        .app-name-link img + span {
+          color: #e2e8f0 !important;
+        }
+        .search .results-panel {
+          background: #0b1220;
+          color: #e2e8f0;
+        }
+      }
+    </style>
+
+    <script>
+      const PROJECT_VERSION = "0.1.0"; // atualiza quando fizeres release
+
+      window.$docsify = {
+        name: "Stream Coach — Agent",
+        repo: "RLNunes/stream-coach-agent",
+        loadSidebar: true,
+        subMaxLevel: 2,
+        auto2top: true,
+        homepage: "README.md",
+        search: {
+          paths: "auto",
+          placeholder: "Pesquisar...",
+          noData: "Sem resultados",
+        },
+        plugins: [
+          function (hook, vm) {
+            hook.afterEach(function (html, next) {
+              const updated = new Date().toLocaleDateString("pt-PT", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+              });
+              const footer = `
+            <hr/>
+            <footer style="font-size:14px;opacity:.8;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+              <span>📚 Docs</span>
+              <span>•</span>
+              <span>Versão <strong>${PROJECT_VERSION}</strong></span>
+              <span>•</span>
+              <span>Atualizado: ${updated}</span>
+              <span style="margin-left:auto;">
+                <a href="https://github.com/RLNunes/stream-coach-agent" target="_blank" rel="noopener">GitHub</a>
+              </span>
+            </footer>`;
+              next(html + footer);
+            });
+          },
+        ],
+      };
+    </script>
+
+    <!-- Docsify core + search -->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  </body>
 </html>
