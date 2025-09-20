@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
+    <!-- Manter head conforme original -->
     <meta charset="UTF-8" />
     <title>Stream Coach — Documentação</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -32,15 +33,22 @@
         .search .results-panel { background: #0b1220; color: #e2e8f0; }
       }
 
-      /* Botão do tema */
+      /* Botão do tema - MELHORADO COM CONTRASTE */
       .theme-toggle {
-        position: fixed; top: 5rem; right: 12px; z-index: 9999;
+        position: fixed; top: 12px; right: 12px; z-index: 9999;
         padding: 6px 10px; border-radius: 10px; font-size: 13px;
-        background: rgba(0,0,0,.06); backdrop-filter: blur(6px); cursor: pointer;
-        border: 1px solid rgba(0,0,0,.08);
+        background: rgba(0,0,0,0.1); backdrop-filter: blur(6px); cursor: pointer;
+        border: 1px solid rgba(0,0,0,0.15);
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       }
       @media (prefers-color-scheme: dark) {
-        .theme-toggle { background: rgba(255,255,255,.08); color: #e2e8f0; border-color: rgba(255,255,255,.12); }
+        .theme-toggle { 
+          background: rgba(255,255,255,0.12); 
+          color: #e2e8f0; 
+          border-color: rgba(255,255,255,0.2);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
       }
 
       /* ===== Temas forçados (Light/Dark) — sobrepõem o automático ===== */
@@ -52,6 +60,12 @@
       :root[data-theme="dark"] .sidebar a { color:#cbd5e1; }
       :root[data-theme="dark"] .app-name-link, :root[data-theme="dark"] .app-name-link img + span { color:#e2e8f0 !important; }
       :root[data-theme="dark"] .search .results-panel { background:#0b1220; color:#e2e8f0; }
+      :root[data-theme="dark"] .theme-toggle { 
+        background: rgba(255,255,255,0.12); 
+        color: #e2e8f0; 
+        border-color: rgba(255,255,255,0.2);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      }
 
       /* Forçar Light (neutraliza o @media dark) */
       :root[data-theme="light"] { color-scheme: light; }
@@ -62,6 +76,32 @@
       :root[data-theme="light"] .sidebar a { color:#34495e; }
       :root[data-theme="light"] .app-name-link, :root[data-theme="light"] .app-name-link img + span { color:#2c3e50 !important; }
       :root[data-theme="light"] .search .results-panel { background:#fff; color:#2c3e50; }
+      :root[data-theme="light"] .theme-toggle { 
+        background: rgba(0,0,0,0.1); 
+        color: #333; 
+        border-color: rgba(0,0,0,0.15);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      /* Melhorias para botão da sidebar em dark mode */
+      :root[data-theme="dark"] .sidebar-toggle {
+        background-color: rgba(255,255,255,0.12);
+        border-color: rgba(255,255,255,0.2);
+      }
+      
+      :root[data-theme="dark"] .sidebar-toggle span {
+        background-color: #cbd5e1;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        .sidebar-toggle {
+          background-color: rgba(255,255,255,0.12);
+          border-color: rgba(255,255,255,0.2);
+        }
+        .sidebar-toggle span {
+          background-color: #cbd5e1;
+        }
+      }
     </style>
   </head>
 
@@ -96,18 +136,15 @@
                 </footer>`;
               next(html + footer);
             });
-            
-            // Inicializar o tema depois que o Docsify estiver pronto
-            hook.ready(function() {
-              initThemeToggle();
-            });
           },
         ],
       };
-      
-      // Função de inicialização do tema movida para fora
-      function initThemeToggle() {
-        const KEY = "sc-theme";          // 'light' | 'dark' | null (auto)
+    </script>
+
+    <!-- Toggle Light/Dark/Auto - CORRIGIDO -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const KEY = "sc-theme";                 // 'light' | 'dark' | null (auto)
         const btn = document.getElementById("themeToggle");
         
         if (!btn) {
@@ -132,10 +169,9 @@
           if (!next) localStorage.removeItem(KEY);
           else localStorage.setItem(KEY, next);
           applyTheme(next);
-          console.log("Tema alterado para:", next || "auto");  // Debug
         }
 
-        // Aplicar tema inicial
+        // Inicial
         applyTheme(localStorage.getItem(KEY));
 
         // Atualiza quando o sistema muda (se em auto)
@@ -151,17 +187,9 @@
         });
 
         // Clique direito ou clique do meio → volta a AUTO
-        btn.addEventListener("contextmenu", (e) => { 
-          e.preventDefault(); 
-          setTheme(null); 
-        });
-        
-        btn.addEventListener("auxclick", (e) => { 
-          if (e.button === 1) setTheme(null); 
-        });
-        
-        console.log("Inicialização do tema concluída!");  // Debug
-      }
+        btn.addEventListener("contextmenu", (e) => { e.preventDefault(); setTheme(null); });
+        btn.addEventListener("auxclick", (e) => { if (e.button === 1) setTheme(null); });
+      });
     </script>
 
     <!-- Docsify core + search -->

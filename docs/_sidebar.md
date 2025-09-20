@@ -1,9 +1,7 @@
-<div style="text-align:center; margin:15px 0;">
-  <div style="display:inline-flex; align-items:center; gap:10px;">
-    <img src="favicon.svg" width="28" height="28" alt="logo" />
-    <strong>Stream Coach — Agent</strong>
-  </div>
-</div>
+<p align="center">
+  <img src="favicon.svg" width="28" height="28" alt="logo" style="vertical-align: middle;" />
+  <strong style="vertical-align: middle;">Stream Coach — Agent</strong>
+</p>
 
 ---
 * [Home](/)
