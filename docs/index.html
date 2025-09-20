@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Stream Coach — Documentação</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
 </head>
+<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+<script>
+  window.$docsify = Object.assign(window.$docsify || {}, {
+    search: { paths: 'auto', placeholder: 'Pesquisar...', noData: 'Sem resultados' }
+  });
+</script>
 <body>
   <div id="app"></div>
   <script>
