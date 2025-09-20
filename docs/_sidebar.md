@@ -1,0 +1,6 @@
+* [Home](/)
+* [Setup](setup.md)
+* [Métricas](metrics.md)
+* [Regras](rules.md)
+* [Troubleshooting](troubleshooting.md)
+* [Roadmap](roadmap.md)
