@@ -1,5 +1,13 @@
-node_modules
-dist
+# dependências
+node_modules/
+
+# build
+dist/
+
+# configs locais
 .env
+.env.local
 *.log
-coverage
+
+# testes/coverage
+coverage/
